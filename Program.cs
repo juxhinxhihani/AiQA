@@ -1,6 +1,7 @@
 using Amazon.BedrockRuntime;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.SimpleEmail;
 using QAAI.Model;
 using QAAI.Service;
 
@@ -34,6 +35,15 @@ builder.Services.AddSingleton<IAmazonS3>(sp =>
     };
     return new AmazonS3Client(credentials, config);
 });
+
+builder.Services.AddSingleton<IAmazonSimpleEmailService>(sp =>
+{
+    var awsSettings = builder.Configuration.GetSection("AWS").Get<AwsSettings>();
+    var credentials = new SessionAWSCredentials(awsSettings.AccessKey, awsSettings.SecretKey, awsSettings.SessionToken);
+
+    return new AmazonSimpleEmailServiceClient(credentials, Amazon.RegionEndpoint.USWest2);
+});
+
 
 builder.Services.AddTransient<S3Service>();
 builder.Services.AddTransient<TextClassificationService>();
