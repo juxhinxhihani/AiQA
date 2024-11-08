@@ -76,7 +76,7 @@ public class TextClassificationService
 
         string s3Data =  await _s3Service.GetDataAsync(); 
 
-        var formattedInput = $"<|begin_of_text|><|start_header_id|>user<|end_header_id|>Based on this data {s3Data} answer to this complain :{inputText}, with only the name of category without explanations.<|eot_id|>\n<|start_header_id|>assistant<|end_header_id|>\n";
+        var formattedInput = $"<|begin_of_text|><|start_header_id|>user<|end_header_id|>Based on this data {s3Data} answer to this complain :{inputText}, with only the name of category without explanations.Does not start with \"I pershendes\"<|eot_id|>\n<|start_header_id|>assistant<|end_header_id|>\n";
 
         var requestBody = JsonConvert.SerializeObject(new
         {
@@ -204,7 +204,7 @@ public class TextClassificationService
     }
     public async Task<ModelResponse> GetCorrectResponse(string inputBody)
     {
-        var formattedInput = $"<|begin_of_text|><|start_header_id|>user<|end_header_id|>Return a short response to this customer in a friendly way to let the customer know that he is compliant is beeing followed up: {inputBody}<|eot_id|>\n<|start_header_id|>assistant<|end_header_id|>\n";
+        var formattedInput = $"<|begin_of_text|><|start_header_id|>user<|end_header_id|>Return a short response to this customer in a friendly way to let the customer know that he is compliant is beeing followed up: {inputBody}. Please return response on the same language that input is!<|eot_id|>\n<|start_header_id|>assistant<|end_header_id|>\n";
 
         var requestBody = JsonConvert.SerializeObject(new
         {
