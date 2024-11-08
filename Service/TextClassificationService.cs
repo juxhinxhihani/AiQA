@@ -77,8 +77,8 @@ public class TextClassificationService
             max_tokens = 200,
             top_k = 250,
             stop_sequences = new string[] { },
-            temperature = 1,
-            top_p = 0.999,
+            temperature = 0.5,
+            top_p = 0.5,
             messages = new[]
             {
                 new
